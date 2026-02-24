@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 注意: url は prisma.config.ts の datasource.url で提供されます。
+// prisma migrate / prisma db push 等のコマンド実行時は
+// prisma.config.ts が正しく読み込まれていることを確認してください。
+datasource db {
+  provider  = "postgresql"
+}
+
+model Account {
+  id          String   @id @default(cuid())
+  userId      String
+  name        String   // 例: 現金、売上高
+  type        String   // 例: ASSET(資産), LIABILITY(負債), EQUITY(純資産), REVENUE(収益), EXPENSE(費用)
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  journalEntries JournalEntry[]
+  openingBalances OpeningBalance[]
+
+  @@unique([userId, name])
+}
+
+model Journal {
+  id          String   @id @default(cuid())
+  userId      String
+  date        DateTime // 取引日
+  description String   // 摘要（例：PC購入、売上等）
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  entries JournalEntry[]
+}
+
+model JournalEntry {
+  id        String   @id @default(cuid())
+  journalId String
+  accountId String
+  amount    Int      // 金額
+  isDebit   Boolean  // true: 借方, false: 貸方
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  journal Journal @relation(fields: [journalId], references: [id], onDelete: Cascade)
+  account Account @relation(fields: [accountId], references: [id])
+}
+
+model FixedAsset {
+  id               String   @id @default(cuid())
+  userId           String
+  name             String   // 資産名（例：パソコン）
+  description      String?  // 詳細・メモ
+  acquisitionDate  DateTime // 取得日
+  acquisitionCost  Int      // 取得価額
+  usefulLife       Int      // 法定耐用年数（年）
+  depreciationType String   @default("STRAIGHT_LINE") // 償却方法: 今回は定額法を想定
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model OpeningBalance {
+  id        String   @id @default(cuid())
+  userId    String
+  year      Int
+  accountId String
+  amount    Int      // 変更：Intに乗っ取る (元々他のamountがIntだったので)
+  isDebit   Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  account   Account  @relation(fields: [accountId], references: [id])
+
+  @@unique([year, accountId])
+}

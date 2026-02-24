@@ -1,0 +1,18 @@
+C:\Users\taque\blue_shinkoku\node_modules\@prisma\client\src\runtime\utils\validatePrismaClientOptions.ts:239
+      throw new PrismaClientConstructorValidationError(
+            ^
+
+PrismaClientConstructorValidationError: Unknown property loadedFromFile provided to PrismaClient constructor.
+Read more at https://pris.ly/d/client-constructor
+    at validatePrismaClientOptions (C:\Users\taque\blue_shinkoku\node_modules\@prisma\client\src\runtime\utils\validatePrismaClientOptions.ts:239:13)
+    at new t (C:\Users\taque\blue_shinkoku\node_modules\@prisma\client\src\runtime\getPrismaClient.ts:282:7)
+    at config (C:\Users\taque\blue_shinkoku\prisma\seed.ts:5:16)
+    at Object.<anonymous> (C:\Users\taque\blue_shinkoku\prisma\seed.ts:64:6)
+    at Module._compile (node:internal/modules/cjs/loader:1804:14)
+    at Object.transformer (C:\Users\taque\blue_shinkoku\node_modules\tsx\dist\register-D46fvsV_.cjs:3:1104)
+    at Module.load (node:internal/modules/cjs/loader:1525:32)
+    at Module._load (node:internal/modules/cjs/loader:1327:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+
+Node.js v24.13.1
