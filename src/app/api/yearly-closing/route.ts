@@ -107,7 +107,7 @@ export async function POST(req: Request) {
         }
 
         // 7. Write Opening Balances for Next Year (Only for ASSET, LIABILITY, EQUITY)
-        await prisma.$transaction(async (tx) => {
+        await prisma.$transaction(async (tx: any) => {
             // Check if already exists, if so delete to override
             await tx.openingBalance.deleteMany({
                 where: { userId: user.id, year: nextYear }

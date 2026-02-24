@@ -17,7 +17,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
         // Prisma doesn't have a simple "replace all relations" without disconnect/connect if we don't know IDs.
         // Easiest is to delete all entries for this journal and recreate them within a transaction.
 
-        await prisma.$transaction(async (tx) => {
+        await prisma.$transaction(async (tx: any) => {
             // 1. Update the Journal itself
             await tx.journal.update({
                 where: { id: journalId },
