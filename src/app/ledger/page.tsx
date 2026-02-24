@@ -20,7 +20,7 @@ export default async function LedgerPage(props: { searchParams: Promise<{ accoun
 
     const accounts = await prisma.account.findMany({ where: { userId: user.id }, orderBy: { type: 'asc' } })
 
-    let selectedAccount = null
+    let selectedAccount: any = null
     let entries: any[] = []
     let openingBalanceAmount = 0
     let openingBalanceDebit = true
