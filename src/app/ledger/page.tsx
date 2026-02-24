@@ -115,7 +115,7 @@ export default async function LedgerPage(props: { searchParams: Promise<{ accoun
                 </CardHeader>
                 <CardContent>
                     <div className="flex flex-wrap gap-2">
-                        {Object.entries(groupedAccounts).map(([type, accs]) => (
+                        {Object.entries(groupedAccounts).map(([type, accs]: [string, any[]]) => (
                             <div key={type} className="w-full mb-4">
                                 <h3 className="font-semibold text-sm text-muted-foreground mb-2">{ACCOUNT_TYPES[type] || type}</h3>
                                 <div className="flex flex-wrap gap-2">
